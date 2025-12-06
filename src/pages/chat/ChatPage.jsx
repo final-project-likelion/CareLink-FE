@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 const ChatPage = () => {
-  return <div></div>;
-};
+  return <>챗봇 페이지입니다.</>
+}
 
-export default ChatPage;
+export default ChatPage
