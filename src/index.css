@@ -1,0 +1,106 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 100; /* Thin */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-Thin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 200; /* ExtraLight */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-ExtraLight.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 300; /* Light */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 500; /* Medium */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 600; /* SemiBold */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 800; /* ExtraBold */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 900; /* Black */
+  font-style: normal;
+  font-display: swap;
+  src: url('@assets/fonts/Pretendard-Black.woff2') format('woff2');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family:
+    'Pretendard',
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+html {
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #ffffff;
+  height: 100%;
+  width: 100%;
+  max-width: 1024px;
+  overflow: hidden;
+}
