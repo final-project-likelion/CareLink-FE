@@ -27,7 +27,7 @@ function SideNavBar() {
     <div className='h-dvh w-68 bg-[#F8F9F9] px-5 border-r border-r-[#DADADA]'>
       <div className='flex flex-row items-center gap-1.5 pt-5 px-2.5 pb-15'>
         <img src={Profile} />
-        <p className='text-[30px]'>이름</p>
+        <p className='text-[30px] font-medium'>이름</p>
       </div>
       {/* 메뉴 리스트 */}
       <nav className='flex flex-col gap-[30px]'>
