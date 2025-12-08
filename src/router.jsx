@@ -2,6 +2,8 @@ import { createBrowserRouter } from 'react-router-dom'
 import App from './App'
 // 챗봇
 import ChatPage from '@/pages/chat/ChatPage'
+//인지훈련
+import CognitiveTrainingPage from './pages/training/CognitiveTrainingPage'
 
 const router = createBrowserRouter([
   {
@@ -13,6 +15,11 @@ const router = createBrowserRouter([
     path: '/chat',
     element: <App />,
     children: [{ index: true, element: <ChatPage /> }],
+  },
+  {
+    path: '/training',
+    element: <App />,
+    children: [{ index: true, element: <CognitiveTrainingPage /> }],
   },
 ])
 
