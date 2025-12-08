@@ -7,8 +7,8 @@ function TodoButton({ icon, title, subtitle }) {
       <div className='flex flex-row gap-[15px]'>
         <img src={icon} />
         <div className='flex flex-col gap-1.5'>
-          <p className='text-xl font-semibold text-black'>{title}</p>
-          <p className='text-base font-normal text-neutral-600'>{subtitle}</p>
+          <p className='text-[20px] font-semibold text-black'>{title}</p>
+          <p className='text-[15px] font-normal text-neutral-600'>{subtitle}</p>
         </div>
       </div>
       <img src={CheckOn} />
