@@ -7,7 +7,7 @@ import ResultButton from './ResultButton'
 
 const MainContent = () => {
   return (
-    <div className='flex-1 bg-[#F6F8F6] py-[30px] pl-[50px] overflow-x-hidden'>
+    <div className='flex-1 bg-background py-[30px] pl-[50px] overflow-x-hidden'>
       <div className='flex flex-col gap-2.5'>
         <div className='flex flex-col gap-10'>
           <div className='flex flex-col gap-2.5'>

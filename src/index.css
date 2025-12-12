@@ -88,7 +88,7 @@
 }
 
 html {
-  background-color: #fbfbfb;
+  background-color: #fcfcfc;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,4 +102,11 @@ body {
   width: 100%;
   max-width: 1366px;
   overflow: hidden;
+}
+
+@theme {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-primary: #2fb69e;
+  --color-background: #fafafa;
 }

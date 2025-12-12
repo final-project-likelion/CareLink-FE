@@ -18,7 +18,7 @@ function ChatInputBar({ onSend }) {
         />
         <button
           onClick={handleClick}
-          className='px-[29px] py-[18px] bg-[#47B5A2] rounded-tr-[10px] rounded-br-[10px] text-white text-5 font-normal cursor-pointer'
+          className='px-[29px] py-[18px] bg-primary rounded-tr-[10px] rounded-br-[10px] text-white text-5 font-normal cursor-pointer'
         >
           보내기
         </button>
