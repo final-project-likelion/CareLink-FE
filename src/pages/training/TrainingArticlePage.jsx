@@ -1,14 +1,14 @@
 import React from 'react'
 import SideNavBar from '@/components/common/SideNavBar'
-import MainContent from '@/components/training/MainContent'
+import MainArticle from '@/components/training/MainArticle'
 
-const CognitiveTrainingPage = () => {
+const TrainingArticlePage = () => {
   return (
     <div className='flex w-full h-dvh'>
       <SideNavBar />
-      <MainContent />
+      <MainArticle />
     </div>
   )
 }
 
-export default CognitiveTrainingPage
+export default TrainingArticlePage
