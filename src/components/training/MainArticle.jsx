@@ -5,7 +5,7 @@ import ArticleBox from './ArticleBox'
 
 const MainArticle = () => {
   return (
-    <div className='flex-1 bg-[#F6F8F6] py-[30px] px-[50px] overflow-x-hidden'>
+    <div className='flex-1 bg-background py-[30px] px-[50px] overflow-x-hidden'>
       <div className='flex flex-col gap-5'>
         <div className='flex flex-col gap-2.5'>
           <Title text={'신문을 요약해보세요.'} />

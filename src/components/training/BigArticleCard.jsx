@@ -7,7 +7,7 @@ function BigArticleCard({ img, title, time }) {
 
   return (
     <div
-      className='w-80 h-80 flex flex-col gap-2.5 p-5 rounded-[20px] bg-[#D9D9D9] cursor-pointer'
+      className='w-80 h-80 flex flex-col gap-2.5 p-5 rounded-[20px] bg-[#E8E8E8] cursor-pointer'
       onClick={() => navigate(`/training/article`)} // 임시 경로
     >
       <img className='pb-2.5' src={img} />
