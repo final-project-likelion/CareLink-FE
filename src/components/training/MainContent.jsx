@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Title from '../common/Title'
 import Subtitle from '../common/Subtitle'
 import BigArticleSection from './BigArticleSection'
@@ -6,6 +7,11 @@ import SmallArticleSection from './SmallArticleSection'
 import ResultButton from './ResultButton'
 
 const MainContent = () => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate('/training/result')
+  }
   return (
     <div className='flex-1 bg-background py-[30px] pl-[50px] overflow-x-hidden'>
       <div className='flex flex-col gap-2.5'>
@@ -16,7 +22,7 @@ const MainContent = () => {
           </div>
           <BigArticleSection />
           <SmallArticleSection />
-          <ResultButton />
+          <ResultButton onClick={handleClick} />
         </div>
       </div>
     </div>
