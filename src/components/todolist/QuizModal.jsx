@@ -27,7 +27,7 @@ const quizDummy = {
   correctOptionId: 2, //정답
 }
 
-function QuizModal({ onClose }) {
+function QuizModal({ onClose, allChecked }) {
   const [selectedId, setSelectedId] = useState(null)
   const [isAnswered, setIsAnswered] = useState(false)
 
@@ -39,6 +39,11 @@ function QuizModal({ onClose }) {
   }
   // 확인 버튼
   const handleConfirm = () => {
+    let isAllChecked = false
+    if (selectedId !== null) {
+      isAllChecked = true
+    }
+    allChecked(isAllChecked)
     onClose()
   }
   return (

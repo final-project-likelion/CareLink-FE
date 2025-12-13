@@ -38,13 +38,18 @@ const pillDummy = {
   ],
 }
 
-function PillModal({ onClose }) {
+function PillModal({ onClose, allChecked }) {
   const [morning, setMorning] = useState(pillDummy.morning)
   const [lunch, setLunch] = useState(pillDummy.lunch)
   const [dinner, setDinner] = useState(pillDummy.dinner)
 
   // 확인 버튼
   const handleConfirm = () => {
+    const allItems = [...morning, ...lunch, ...dinner]
+
+    const isAllChecked = allItems.every((item) => item.checked === true)
+
+    allChecked(isAllChecked)
     onClose()
   }
   return (

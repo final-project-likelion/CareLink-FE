@@ -2,7 +2,7 @@ import React from 'react'
 import CheckOff from '@/assets/icons/icon-checked-off.svg'
 import CheckOn from '@/assets/icons/icon-checked-on.svg'
 
-function TodoButton({ icon, title, subtitle, onClick }) {
+function TodoButton({ icon, title, subtitle, done, onClick }) {
   return (
     <button
       type='button'
@@ -16,7 +16,7 @@ function TodoButton({ icon, title, subtitle, onClick }) {
           <p className='text-[15px] font-normal text-neutral-600'>{subtitle}</p>
         </div>
       </div>
-      <img src={CheckOff} />
+      <img src={done ? CheckOn : CheckOff} />
     </button>
   )
 }
