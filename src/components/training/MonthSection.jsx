@@ -2,10 +2,7 @@ import React, { useState } from 'react'
 import LeftArrow from '@/assets/icons/icon-arrow-left.svg'
 import RightArrow from '@/assets/icons/icon-arrow-right.svg'
 
-function MonthSection() {
-  // 이번달 받아오기
-  const [month, setMonth] = useState(new Date().getMonth() + 1)
-
+function MonthSection({ month, setMonth }) {
   const handlePrevMonth = () => {
     setMonth((prev) => (prev === 1 ? 12 : prev - 1))
   }
