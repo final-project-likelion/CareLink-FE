@@ -3,7 +3,7 @@ import Score from '@/assets/icons/icon-score.svg'
 
 function DaySummaryCard({ date, title, score }) {
   return (
-    <div className='flex flex-col gap-5 py-[26px] px-6 rounded-[15px] bg-white shadow-[0px_1px_1px_0px_rgba(0,0,0,0.25)]'>
+    <div className='flex flex-col gap-5 py-[25px] px-6 rounded-[15px] bg-white shadow-[0px_1px_1px_0px_rgba(0,0,0,0.25)]'>
       <p className='font-medium text-[20px]'>{date}</p>
       <p className='font-semibold text-[25px] line-clamp-2 break-keep'>{title}</p>
       <div className='flex flex-col gap-2.5'>
