@@ -39,7 +39,7 @@ const conditionForm = [
   },
 ]
 
-function ConditionModal({ onClose }) {
+function ConditionModal({ onClose, allChecked }) {
   const [answers, setAnswers] = useState({ mood: null, sleep: null, pain: null })
 
   const handleSelect = (key, value) => {
@@ -47,6 +47,9 @@ function ConditionModal({ onClose }) {
   }
   // 확인 버튼 (연동)
   const handleConfirm = () => {
+    const isAllChecked = Object.values(answers).every((v) => v !== null)
+
+    allChecked(isAllChecked)
     onClose()
   }
   return (
@@ -67,7 +70,7 @@ function ConditionModal({ onClose }) {
               selected={answers[q.key]}
               onSelect={(value) => handleSelect(q.key, value)}
             />
-          ))}{' '}
+          ))}
         </div>
       </ModalBase>
     </>

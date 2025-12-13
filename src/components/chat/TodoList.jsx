@@ -9,6 +9,9 @@ import Quiz from '@/assets/icons/icon-quiz.svg'
 
 const TodoList = () => {
   const [openModal, setOpenModal] = useState(null)
+  const [pillDone, setPillDone] = useState(false)
+  const [conditionDone, setConditionDone] = useState(false)
+  const [quizDone, setQuizDone] = useState(false)
 
   const handleClose = () => {
     setOpenModal(null)
@@ -22,6 +25,7 @@ const TodoList = () => {
           icon={Pill}
           title={'약 복용'}
           subtitle={'약을 드셨나요?'}
+          done={pillDone}
           onClick={() => {
             setOpenModal('pill')
           }}
@@ -30,6 +34,7 @@ const TodoList = () => {
           icon={Condition}
           title={'컨디션'}
           subtitle={'오늘 기분은 어때요?'}
+          done={conditionDone}
           onClick={() => {
             setOpenModal('condition')
           }}
@@ -38,15 +43,18 @@ const TodoList = () => {
           icon={Quiz}
           title={'오늘의 퀴즈'}
           subtitle={'뇌 건강 퀴즈 풀기'}
+          done={quizDone}
           onClick={() => {
             setOpenModal('quiz')
           }}
         />
       </div>
       {/* 각 모달 띄우기 */}
-      {openModal === 'pill' && <PillModal onClose={handleClose} />}
-      {openModal === 'condition' && <ConditionModal onClose={handleClose} />}
-      {openModal === 'quiz' && <QuizModal onClose={handleClose} />}
+      {openModal === 'pill' && <PillModal onClose={handleClose} allChecked={setPillDone} />}
+      {openModal === 'condition' && (
+        <ConditionModal onClose={handleClose} allChecked={setConditionDone} />
+      )}
+      {openModal === 'quiz' && <QuizModal onClose={handleClose} allChecked={setQuizDone} />}
     </>
   )
 }
