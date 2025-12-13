@@ -1,10 +1,12 @@
 import React, { useRef, useState, useCallback } from 'react'
+import MicModal from './MicModal'
 import MicOff from '@/assets/icons/icon-microphone-off.svg'
 import MicOn from '@/assets/icons/icon-microphone-on.svg'
 
 function ChatInputBar({ onSend }) {
   const [text, setText] = useState('') // 입력한 채팅
   const [isRecording, setIsRecording] = useState(false) // 녹음중 여부
+  const [isMicModalOpen, setIsMicModalOpen] = useState(false)
   const streamRef = useRef(null) // 마이크
   const recordRef = useRef(null) // 녹음기
   const chunksRef = useRef([]) // 녹음 데이터
@@ -51,6 +53,7 @@ function ChatInputBar({ onSend }) {
         console.log('업로드할 파일: ', file)
         chunksRef.current = []
         setIsRecording(false)
+        setIsMicModalOpen(false)
 
         streamRef.current?.getTracks().forEach((t) => t.stop())
         streamRef.current = null
@@ -59,6 +62,7 @@ function ChatInputBar({ onSend }) {
 
       recorder.start()
       setIsRecording(true)
+      setIsMicModalOpen(true)
     } catch (err) {
       console.error(err)
       setIsRecording(false)
@@ -113,6 +117,7 @@ function ChatInputBar({ onSend }) {
           보내기
         </button>
       </div>
+      {isMicModalOpen && <MicModal onClose={stopRecording} />}
     </div>
   )
 }
