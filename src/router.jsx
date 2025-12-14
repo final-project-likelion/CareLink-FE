@@ -5,6 +5,7 @@ import ChatPage from '@/pages/chat/ChatPage'
 //인지훈련
 import TrainingPage from './pages/training/TrainingPage'
 import TrainingArticlePage from './pages/training/TrainingArticlePage'
+import TrainingResultPage from './pages/training/TrainingResultPage'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: 'article',
         element: <TrainingArticlePage />,
+      },
+      {
+        path: 'result',
+        element: <TrainingResultPage />,
       },
     ],
   },
