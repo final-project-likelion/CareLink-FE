@@ -12,7 +12,7 @@ const MENUS = [
   { key: 'training', label: '인지훈련', icon: Training, path: '/training' },
   { key: 'diary', label: '일기', icon: Diary, path: '/diary' },
   { key: 'dashboard', label: '대시보드', icon: DashBoard, path: '/dashboard' },
-  { key: 'setting', label: '환경설정', icon: Setting, path: '/setting' },
+  { key: 'settings', label: '환경설정', icon: Setting, path: '/settings' },
 ]
 
 function SideNavBar() {
