@@ -8,6 +8,7 @@ import TrainingArticlePage from './pages/training/TrainingArticlePage'
 import TrainingResultPage from './pages/training/TrainingResultPage'
 // 환경설정
 import SettingsPage from './pages/settings/SettingsPage'
+import MedicationEditPage from './pages/settings/MedicationEditPage'
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,13 @@ const router = createBrowserRouter([
   {
     path: '/settings',
     element: <App />,
-    children: [{ index: true, element: <SettingsPage /> }],
+    children: [
+      { index: true, element: <SettingsPage /> },
+      {
+        path: 'medications/edit',
+        element: <MedicationEditPage />,
+      },
+    ],
   },
 ])
 
