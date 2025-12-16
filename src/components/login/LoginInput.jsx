@@ -1,7 +1,17 @@
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import React from 'react'
 import TextField from './TextField'
 
 const LoginInput = () => {
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [password, setPassword] = useState('')
+
+  const trimmedPhoneNumber = phoneNumber.trim()
+  const trimmedPassword = password.trim()
+
+  const isFormValid = trimmedPhoneNumber > 0 && trimmedPassword.length > 0
+
   return (
     <div className='w-[518px] max-h-[710px] rounded-[10px] inset-shadow-[0_2px_2px_0_rgba(0,0,0,0.25)] shadow-[0_5px_5px_2px_rgba(0,0,0,0.25)] z-10'>
       <div className='p-14 grid gap-9'>
@@ -11,13 +21,16 @@ const LoginInput = () => {
             서비스 이용을 위해 로그인해주세요.
           </p>
         </div>
-        <div className='grid gap-7'>
+        <form className='grid gap-7'>
           <TextField label='아이디' type='text' subtitle='(전화번호)' placeholder='010-0000-0000' />
           <TextField label='비밀번호' type='password' placeholder='비밀번호를 입력하세요.' />
-          <button className='w-full bg-primary text-white font-semibold text-xl rounded-[10px] py-[18px] mt-3 cursor-pointer'>
+          <button
+            type='submit'
+            className='w-full bg-primary text-white font-semibold text-xl rounded-[10px] py-[18px] mt-3 cursor-pointer'
+          >
             로그인
           </button>
-        </div>
+        </form>
         <div>
           <div className='flex items-center py-6'>
             <div className='h-[0.5px] bg-[#606060] grow'></div>
