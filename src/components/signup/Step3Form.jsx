@@ -1,7 +1,7 @@
 import React from 'react'
 import TextField from '../common/TextField'
 import SignupTitle from './SignupTitle'
-import AgreeItem from './agreeItem'
+import AgreeItem from './AgreeItem'
 import agree_off from '@/assets/icons/icon-agree-off.svg'
 import agree_on from '@/assets/icons/icon-agree-on.svg'
 
@@ -14,6 +14,7 @@ const Step3Form = ({ agreements, toggleAgree }) => {
     { key: 'notify', required: false, title: '전자적 전송(알림) 수신 동의' },
     { key: 'marketing', required: false, title: '마케팅 정보 수신 동의 (앱 푸시·SMS)' },
   ]
+
   return (
     <div className='w-full max-w-[815px] inset-shadow-[0_2px_2px_0_rgba(0,0,0,0.25)] shadow-[0_2px_2px_3px_rgba(0,0,0,0.25)] rounded-3xl'>
       <div className='px-52 py-16'>
