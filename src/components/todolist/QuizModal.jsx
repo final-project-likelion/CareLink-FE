@@ -35,16 +35,12 @@ function QuizModal({ onClose, allChecked }) {
   const handleSelect = (id) => {
     if (isAnswered) return
     setSelectedId(id)
-    setIsAnswered(true)
   }
   // 확인 버튼
   const handleConfirm = () => {
-    let isAllChecked = false
-    if (selectedId !== null) {
-      isAllChecked = true
-    }
-    allChecked(isAllChecked)
-    onClose()
+    if (selectedId == null) return
+    setIsAnswered(true)
+    allChecked(true)
   }
   return (
     <>
@@ -66,6 +62,7 @@ function QuizModal({ onClose, allChecked }) {
                 text={q.text}
                 onClick={() => handleSelect(q.id)}
                 disabled={isAnswered}
+                isSelected={~isAnswered && isSelected}
                 isCorrect={isAnswered && isCorrect} // 정답 버튼
                 isWrong={isAnswered && isSelected && !isCorrect} // 오답 버튼
               />
