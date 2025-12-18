@@ -44,11 +44,6 @@ function ChatInputBar({ onSend }) {
           lastModified: Date.now(),
         })
 
-        // 미리듣기 (추후 삭제)
-        const url = URL.createObjectURL(file)
-        console.log('미리듣기 URL:', url)
-        window.open(url)
-
         // 업로드할 파일 콘솔 찍어보기
         console.log('업로드할 파일: ', file)
         chunksRef.current = []
