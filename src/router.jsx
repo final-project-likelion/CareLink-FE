@@ -13,6 +13,8 @@ import LoginPage from './pages/login/LoginPage'
 //회원가입
 import SignupPage from './pages/signup/SignupPage'
 import SignupResultPage from './pages/signup/SignupResultPage'
+//대시보드
+import DashboardPage from './pages/dashboard/DashboardPage'
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,11 @@ const router = createBrowserRouter([
       { index: true, element: <SignupPage /> },
       { path: 'result', element: <SignupResultPage /> },
     ],
+  },
+  {
+    path: '/dashboard',
+    element: <App />,
+    children: [{ index: true, element: <DashboardPage /> }],
   },
 ])
 
