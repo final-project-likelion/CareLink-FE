@@ -29,7 +29,7 @@ const StatusCard = ({ theme }) => {
 
   return (
     <div className='rounded-[15px] p-[21px] min-w-40' style={{ backgroundColor: bg }}>
-      <div className='flex justify-between'>
+      <div className='flex justify-between items-center'>
         <p className='font-semibold text-lg text-black'>{title}</p>
         <div className='px-[5px] py-2.5 rounded-[15px]' style={{ backgroundColor: iconBg }}>
           <img
