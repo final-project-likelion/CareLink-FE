@@ -8,15 +8,14 @@ import TrainingArticlePage from './pages/training/TrainingArticlePage'
 import TrainingResultPage from './pages/training/TrainingResultPage'
 // 환경설정
 import SettingsPage from './pages/settings/SettingsPage'
-<<<<<<< HEAD
 import MedicationEditPage from './pages/settings/MedicationEditPage'
-=======
 //로그인
 import LoginPage from './pages/login/LoginPage'
 //회원가입
 import SignupPage from './pages/signup/SignupPage'
 import SignupResultPage from './pages/signup/SignupResultPage'
->>>>>>> dab64dfa8ca7872ddec519a3b92968057cfd3e05
+//대시보드
+import DashboardPage from './pages/dashboard/DashboardPage'
 
 const router = createBrowserRouter([
   {
@@ -47,15 +46,13 @@ const router = createBrowserRouter([
   {
     path: '/settings',
     element: <App />,
-<<<<<<< HEAD
     children: [
       { index: true, element: <SettingsPage /> },
       {
         path: 'medications/edit',
         element: <MedicationEditPage />,
       },
-=======
-    children: [{ index: true, element: <SettingsPage /> }],
+    ],
   },
   {
     path: '/signup',
@@ -63,8 +60,12 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <SignupPage /> },
       { path: 'result', element: <SignupResultPage /> },
->>>>>>> dab64dfa8ca7872ddec519a3b92968057cfd3e05
     ],
+  },
+  {
+    path: '/dashboard',
+    element: <App />,
+    children: [{ index: true, element: <DashboardPage /> }],
   },
 ])
 
