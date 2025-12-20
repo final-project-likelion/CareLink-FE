@@ -6,15 +6,17 @@ import TimePicker from './TimePicker'
 
 function MedicineCard({ item, isEditing, onSave, onEdit, onDelete }) {
   const [name, setName] = useState(item.name)
-  const [times, setTimes] = useState(item.time ? [item.time] : [''])
+  const [times, setTimes] = useState(item.times ?? [])
   const [isTimeModalOpen, setIsTimeModalOpen] = useState(false)
   const [activeTimeIndex, setActiveTimeIndex] = useState(null)
+
   useEffect(() => {
     if (isEditing) {
       setName(item.name)
-      setTimes(item.time ? [item.time] : [''])
+      setTimes(item.times ?? [])
     }
-  }, [isEditing, item.name, item.time])
+  }, [isEditing])
+
   // 시간 선택 모달
   const handleModal = (index) => {
     setActiveTimeIndex(index)
@@ -23,11 +25,11 @@ function MedicineCard({ item, isEditing, onSave, onEdit, onDelete }) {
 
   // 시간 추가 버튼
   const handleAddTime = () => {
-    if (times.some((t) => !t.trim())) {
+    if (times.some((t) => !t.time)) {
       alert('기존 시간을 먼저 선택해주세요.')
       return
     }
-    setTimes((prev) => [...prev, ''])
+    setTimes((prev) => [...prev, { id: null, time: '' }])
   }
 
   // 카드 저장 버튼
@@ -36,7 +38,7 @@ function MedicineCard({ item, isEditing, onSave, onEdit, onDelete }) {
       alert('약 이름을 입력해주세요.')
       return
     }
-    if (times.length === 0 || times.some((t) => !t.trim())) {
+    if (times.length === 0 || times.some((t) => !t.time)) {
       alert('복용 시간을 모두 입력해주세요.')
       return
     }
@@ -63,15 +65,15 @@ function MedicineCard({ item, isEditing, onSave, onEdit, onDelete }) {
             </div>
             <div className='flex flex-col gap-2.5 mt-[30px]'>
               <p className='font-medium text-[23px]'>복용 시간</p>
-              {times.map((time, index) => (
+              {times.map((t, index) => (
                 <button
-                  key={index}
+                  key={t.id}
                   type='button'
                   onClick={() => handleModal(index)}
                   className='flex flex-row justify-between px-[25px] py-[17px] font-semibold text-[18px] bg-white rounded-[10px] border-[1.50px] border-[#B3B3B3]  cursor-pointer'
                 >
-                  <p className={time ? 'text-black' : 'text-[#B3B3B3]'}>
-                    {time || '시간을 선택해주세요.'}
+                  <p className={t.time ? 'text-black' : 'text-[#B3B3B3]'}>
+                    {t.time || '시간을 선택해주세요.'}
                   </p>
                   <img src={IconSelect} />
                 </button>
@@ -102,20 +104,16 @@ function MedicineCard({ item, isEditing, onSave, onEdit, onDelete }) {
             </div>
             <div className='flex flex-col gap-2.5 mt-[30px]'>
               <p className='font-medium text-[23px]'>복용시간</p>
-              {item.times && item.times.length > 0 ? (
-                item.times.map((t, i) => (
+              {item.times &&
+                item.times.length > 0 &&
+                item.times.map((t) => (
                   <div
-                    key={i}
+                    key={t.id}
                     className='px-[25px] py-[17px] font-semibold text-[18px] bg-white rounded-[10px] border-[1.50px] border-[#B3B3B3] mb-2'
                   >
-                    {t}
+                    {t.time}
                   </div>
-                ))
-              ) : (
-                <div className='px-[25px] py-[17px] font-semibold text-[18px] bg-white rounded-[10px] border-[1.50px] border-[#B3B3B3]'>
-                  {item.time || '시간 정보 없음'}
-                </div>
-              )}
+                ))}
             </div>
           </>
         )}
@@ -134,7 +132,9 @@ function MedicineCard({ item, isEditing, onSave, onEdit, onDelete }) {
         isOpen={isTimeModalOpen}
         onClose={() => setIsTimeModalOpen(false)}
         onConfirm={(selectedTime) => {
-          setTimes((prev) => prev.map((t, i) => (i === activeTimeIndex ? selectedTime : t)))
+          setTimes((prev) =>
+            prev.map((t, i) => (i === activeTimeIndex ? { ...t, time: selectedTime } : t)),
+          )
           setIsTimeModalOpen(false)
         }}
       />

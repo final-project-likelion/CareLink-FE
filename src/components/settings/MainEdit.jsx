@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import Title from '../common/Title'
 import Subtitle from '../common/Subtitle'
 import MedicineCard from './MedicineCard'
@@ -7,9 +8,26 @@ function MainEdit() {
   const [medicines, setMedicines] = useState([])
   const [editingId, setEditingId] = useState(null)
 
+  const apiUrl = import.meta.env.VITE_API_BASE_URL
+  const accessToken = localStorage.getItem('accessToken')
+
   // 1. 약 정보 조회
+  const getMedicines = async () => {
+    try {
+      const res = await axios.get(`${apiUrl}/api/medicines`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+
+      setMedicines(res.data.data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   useEffect(() => {
-    setMedicines([])
+    getMedicines()
   }, [])
 
   // 2. 약 추가
