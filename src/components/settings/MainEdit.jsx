@@ -32,22 +32,41 @@ function MainEdit() {
 
   // 2. 약 추가
   const handleAdd = () => {
-    const newItem = {
+    const tempItem = {
       id: Date.now(),
       name: '',
-      time: '',
+      times: [],
     }
 
-    setMedicines((prev) => [...prev, newItem])
-    setEditingId(newItem.id)
+    setMedicines((prev) => [...prev, tempItem])
+    setEditingId(tempItem.id)
   }
 
   // 3. 약 정보 저장
-  const handleSave = (id, updatedData) => {
-    setMedicines((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, ...updatedData } : item)),
-    )
-    setEditingId(null)
+  const handleAddMedicine = async ({ name, times }) => {
+    try {
+      const res = await axios.post(
+        `${apiUrl}/api/medicines`,
+        { name, times: times.map((t) => t.time) },
+        { headers: { Authorization: `Bearer ${accessToken}` } },
+      )
+
+      // medicineId 반환
+      return res.data.data
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleSave = async (tempId, { name, times }) => {
+    try {
+      const newItem = await handleAddMedicine({ name, times })
+      setMedicines((prev) => prev.filter((item) => item.id !== tempId).concat(newItem))
+      setEditingId(null)
+    } catch (err) {
+      alert('약 추가 실패')
+      console.error(err)
+    }
   }
 
   // 4. 약 정보 수정
