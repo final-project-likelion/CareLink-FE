@@ -17,7 +17,7 @@ function MainChat() {
 
   // 연동
   const apiUrl = import.meta.env.VITE_API_BASE_URL
-  const accessToken = 'accessToken' // 임시 작성
+  const accessToken = localStorage.getItem('accessToken')
 
   // 1. 채팅방 불러오기
   const getChatRoom = async () => {

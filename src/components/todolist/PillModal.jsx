@@ -9,7 +9,7 @@ function PillModal({ onClose, allChecked }) {
   const [dinner, setDinner] = useState([])
 
   const apiUrl = import.meta.env.VITE_API_BASE_URL
-  const accessToken = 'accessToken' // 임시 작성
+  const accessToken = localStorage.getItem('accessToken')
 
   // 오늘 복용약 불러오는 함수
   const getTodayMedicines = async () => {
