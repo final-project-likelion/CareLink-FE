@@ -5,8 +5,15 @@ import IconNumber from '@/assets/icons/icon-number-2.svg'
 
 const SummaryOneLineBox = () => {
   const [showFeedback, setShowFeedback] = useState(false)
+  const [text, setText] = useState('')
+
+  const isFilled = text.trim().length > 0
   const handleSubmit = () => {
-    setShowFeedback(true)
+    if (isFilled) {
+      setShowFeedback(true)
+    } else {
+      alert('한 줄 요약에 대한 답변을 입력해주세요.')
+    }
   }
   return (
     <div className='flex flex-col w-full'>
@@ -17,12 +24,14 @@ const SummaryOneLineBox = () => {
       {/* 요약 input box */}
       <textarea
         placeholder='기사 내용을 바탕으로 한 줄로 요약해 보세요.'
+        value={text}
+        onChange={(e) => setText(e.target.value)}
         disabled={showFeedback}
-        className='flex-1 mt-5 mr-[58px] mb-[50px] ml-[48px] bg-[#F2F3F4] rounded-[10px] resize-none px-5 py-[15px] text-black text-[18px]'
+        className='flex-1 mt-5 mr-[58px] mb-[50px] ml-12 bg-[#F2F3F4] rounded-[10px] resize-none px-5 py-[15px] text-black text-[18px]'
       />
       {/* 제출 버튼 */}
       <div className='flex justify-center'>
-        <SubmitButton label='최종 피드백 보기' onClick={handleSubmit} />
+        <SubmitButton label='최종 피드백 보기' onClick={handleSubmit} disabled={!isFilled} />
       </div>
       {/* 피드백 박스 */}
       {showFeedback && (

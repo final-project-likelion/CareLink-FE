@@ -11,7 +11,7 @@ function TodoButton({ icon, title, subtitle, done, onClick }) {
     >
       <div className='flex flex-row gap-[15px]'>
         <img src={icon} />
-        <div className='flex flex-col items-start gap-1.5'>
+        <div className='flex flex-col items-start gap-1.5 text-left'>
           <p className='text-[20px] font-semibold text-black'>{title}</p>
           <p className='text-[15px] font-normal text-neutral-600'>{subtitle}</p>
         </div>
