@@ -2,8 +2,9 @@ import React from 'react'
 import TextField from '../common/TextField'
 import SignupTitle from './SignupTitle'
 import SelectChip from './SelectChip'
+import IdSignupField from './IdSignupField'
 
-const Step1Form = ({ form, setField, setCog, toggleInterest }) => {
+const Step1Form = ({ form, setField, setCog, toggleInterest, check, checkId }) => {
   const COGNITIVE_OPTIONS = [
     { id: 'SUSPECTED', label: '치매 의심' },
     { id: 'MILD', label: '치매 경도' },
@@ -34,12 +35,12 @@ const Step1Form = ({ form, setField, setCog, toggleInterest }) => {
             value={form.name}
             onChange={(e) => setField('name', e.target.value)}
           />
-          <TextField
-            label='아이디 (휴대폰 번호)'
-            type='text'
-            placeholder='010-0000-0000'
+          <IdSignupField
             value={form.phoneNum}
             onChange={(e) => setField('phoneNum', e.target.value)}
+            onCheck={checkId}
+            status={check.phoneDup.status}
+            message={check.phoneDup.message}
           />
           <TextField
             label='비밀번호'
