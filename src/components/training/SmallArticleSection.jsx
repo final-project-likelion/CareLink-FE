@@ -44,7 +44,7 @@ const dummyData = [
 const SmallArticleSection = () => {
   return (
     <div className='w-full overflow-x-auto'>
-      <div className='flex flex-row gap-[35px] flex-nowrap w-max'>
+      <div className='flex flex-row gap-[35px] flex-nowrap w-max mr-[24px]'>
         {dummyData.map((d) => (
           <SmallArticleCard
             key={d.id}
