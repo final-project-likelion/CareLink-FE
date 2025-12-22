@@ -5,7 +5,7 @@ import CheckListSection from './CheckListSection'
 import AlertPillModal from './AlertPillModal'
 import Loading from '../common/Loading'
 
-function PillModal({ onClose, allChecked }) {
+function PillModal({ onClose, onChecked }) {
   const [morning, setMorning] = useState([])
   const [lunch, setLunch] = useState([])
   const [dinner, setDinner] = useState([])
@@ -26,8 +26,7 @@ function PillModal({ onClose, allChecked }) {
         setIsEmpty(false)
         const allItems = [...morningMedicines, ...noonMedicines, ...eveningMedicines]
         const isAnyTaken = allItems.some((item) => item.isTaken)
-        allChecked(isAnyTaken)
-
+        onChecked()
         setMorning(morningMedicines)
         setLunch(noonMedicines)
         setDinner(eveningMedicines)

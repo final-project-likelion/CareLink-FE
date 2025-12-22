@@ -40,7 +40,7 @@ const conditionForm = [
   },
 ]
 
-function ConditionModal({ onClose, allChecked }) {
+function ConditionModal({ onClose, onChecked }) {
   // 항목별 점수 저장
   const [answers, setAnswers] = useState({ mood: null, sleep: null, pain: null })
   // 모달 등록 vs 수정 모드 구분
@@ -72,7 +72,7 @@ function ConditionModal({ onClose, allChecked }) {
         await api.post('/api/condition/today', payload)
       }
 
-      allChecked(true)
+      onChecked()
       onClose()
     } catch (err) {
       console.error(err)
@@ -93,7 +93,6 @@ function ConditionModal({ onClose, allChecked }) {
           pain: painScore,
         })
         setIsEditMode(true) // 수정 모드
-        allChecked(true)
       } else {
         setIsEditMode(false)
       }

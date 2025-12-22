@@ -26,7 +26,7 @@ function MainChat() {
           {
             id: 'default-question',
             role: 'bot',
-            text: "안녕하세요, 숙멋사님! 오늘 하루를 시작해볼까요?\n상단의 '오늘의 할 일'을 먼저 확인해주세요.",
+            text: "안녕하세요! 오늘 하루를 활기차게 시작해볼까요?\n상단의 '오늘의 할 일'을 먼저 확인해주세요.",
           },
           ...getMessages,
         ])
