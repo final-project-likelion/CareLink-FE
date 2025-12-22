@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo } from 'react'
+import { checkPhoneDup } from '@/apis/auth'
 
 const initialForm = {
   name: '',
@@ -60,9 +61,9 @@ export const useSignupForm = () => {
       setCheck((prev) => ({ ...prev, phoneDup: { status: 'loading', message: '' } }))
 
       //api 추가 예정
-      //const isDuplicate = res.data.data
 
-      const isDuplicate = false //임의 예시
+      const res = await checkPhoneDup(phone)
+      const isDuplicate = res.data.data
 
       if (isDuplicate) {
         setCheck((prev) => ({
@@ -84,6 +85,20 @@ export const useSignupForm = () => {
       }))
     }
   }, [form.phoneNum])
+
+  //생년월일 자동 하이픈 생성
+  const formatBirthday = (value) => {
+    const digits = value.replace(/\D/g, '').slice(0, 8)
+
+    if (digits.length <= 4) return digits
+    if (digits.length <= 6) return `${digits.slice(0, 4)}-${digits.slice(4)}`
+    return `${digits.slice(0, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`
+  }
+
+  const setBirthday = useCallback((value) => {
+    const formatted = formatBirthday(value)
+    setForm((prev) => ({ ...prev, birthday: formatted }))
+  }, [])
 
   //인지 상태 선택
   const setCog = useCallback((key, value) => {
@@ -158,6 +173,7 @@ export const useSignupForm = () => {
     step,
     form,
     setField,
+    setBirthday,
     setCog,
     toggleInterest,
     toggleAgree,
