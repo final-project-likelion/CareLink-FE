@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import DiaryTipCard from './DiaryTipCard'
 import CareMessageCard from './CareMessageCard'
 import CalederCard from './CalederCard'
+import CalendarContent from './CalendarContent'
 
 const DiaryListContent = () => {
   return (
@@ -13,9 +14,7 @@ const DiaryListContent = () => {
         </p>
       </div>
       <div className='flex gap-[50px]'>
-        <div className='w-[516px] h-[702px] rounded-[15px] p-[22px] inset-shadow-[0_2px_2px_0_rgba(0,0,0,0.25)] shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]'>
-          {/*달력*/}
-        </div>
+        <CalendarContent />
         <div className='flex flex-col gap-[25px]'>
           <DiaryTipCard />
           <CareMessageCard />
