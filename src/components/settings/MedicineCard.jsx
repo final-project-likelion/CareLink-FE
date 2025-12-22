@@ -141,9 +141,9 @@ function MedicineCard({ item, isEditing, onSave, onEdit, onDelete }) {
               <p className='font-medium text-[23px]'>복용시간</p>
               {item.times &&
                 item.times.length > 0 &&
-                item.times.map((t) => (
+                item.times.map((t, index) => (
                   <div
-                    key={t.id}
+                    key={t.id || index}
                     className='px-[25px] py-[17px] font-semibold text-[18px] bg-white rounded-[10px] border-[1.50px] border-[#B3B3B3] mb-2'
                   >
                     {t.time}

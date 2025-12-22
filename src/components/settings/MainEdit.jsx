@@ -52,7 +52,7 @@ function MainEdit() {
         })
       } else {
         // 약 정보 수정
-        await api.put('/api/medicines/${id}', payload)
+        await api.put(`/api/medicines/${id}`, payload)
       }
 
       setEditingId(null)
@@ -70,7 +70,7 @@ function MainEdit() {
   // 5. 약 정보 삭제
   const handleDelete = async (medicineId) => {
     try {
-      await api.delete(`${apiUrl}/api/medicines/${medicineId}`)
+      await api.delete(`/api/medicines/${medicineId}`)
 
       setMedicines((prev) => prev.filter((item) => item.id !== medicineId))
       if (editingId === medicineId) {
