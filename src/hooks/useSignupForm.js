@@ -60,8 +60,6 @@ export const useSignupForm = () => {
     try {
       setCheck((prev) => ({ ...prev, phoneDup: { status: 'loading', message: '' } }))
 
-      //api 추가 예정
-
       const res = await checkPhoneDup(phone)
       const isDuplicate = res.data.data
 
