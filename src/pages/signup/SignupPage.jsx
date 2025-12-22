@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Step1Form from '@/components/signup/Step1Form'
 import Step2Form from '@/components/signup/Step2Form'
 import Step3Form from '@/components/signup/Step3Form'
 import StepActions from '@/components/signup/StepActions'
+import ToastModal from '@/components/signup/ToastModal'
 import { useSignupForm } from '@/hooks/useSignupForm'
 import { useNavigate } from 'react-router-dom'
 import { signup } from '@/apis/auth'
@@ -23,6 +24,11 @@ const SignupPage = () => {
     check,
     checkId,
   } = useSignupForm()
+
+  const [toast, setToast] = useState({ open: false, message: '' })
+
+  const showToast = (message) => setToast({ open: true, message })
+  const closeToast = () => setToast((p) => ({ ...p, open: false }))
 
   const handleFinalSubmit = async () => {
     try {
@@ -45,12 +51,23 @@ const SignupPage = () => {
         },
       })
     } catch (err) {
-      console.log(err?.response?.data?.message || '회원가입에 실패했습니다.')
+      const serverMsg = err?.response?.data?.message
+
+      showToast(serverMsg || '회원가입에 실패했습니다.')
+      console.log(err)
     }
   }
 
   return (
     <div className='flex flex-col items-center relative w-full h-dvh py-11 overflow-y-auto'>
+      {step === 3 && (
+        <ToastModal
+          open={toast.open}
+          message={toast.message}
+          duration={2500}
+          onClose={closeToast}
+        />
+      )}
       {step === 1 && (
         <Step1Form
           form={form}
