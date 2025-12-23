@@ -36,11 +36,8 @@ const DashboardContent = () => {
   }, [dash])
 
   const quizChartData = useMemo(() => {
-    const list = dash?.quiz?.last7Days ?? []
-    return list.map((item, i) => ({
-      x: i,
-      y: item.score,
-    }))
+    const scores = dash?.quiz?.scores ?? []
+    return scores.map((v, i) => ({ x: i, y: v }))
   }, [dash])
 
   if (loading) {
@@ -56,7 +53,7 @@ const DashboardContent = () => {
       </div>
       <div className='grid grid-rows-3 gap-9'>
         <div className='grid grid-cols-4 gap-7'>
-          <ConditionCard moodData={moodChartData} />
+          <ConditionCard moodData={moodChartData} data={dash.condition.status} />
           <StatusCard theme={'medicine'} data={dash.medicine} />
           <StatusCard theme={'diary'} data={dash.diary} />
           <StatusCard theme={'training'} data={dash.cognitiveTraining} />
