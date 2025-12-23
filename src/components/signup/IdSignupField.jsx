@@ -14,7 +14,7 @@ const IdSignupField = ({ value, onChange, onCheck, status, message }) => {
         <input
           className='border-solid border-[1.5px] border-[#b3b3b3] rounded-[10px] w-full py-[19px] pl-[25px] font-medium text-[18px] pr-[114px]'
           type='text'
-          placeholder='010-0000-0000'
+          placeholder='01000000000'
           value={value}
           onChange={onChange}
         />
