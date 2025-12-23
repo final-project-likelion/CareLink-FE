@@ -2,10 +2,7 @@ import React from 'react'
 import condition from '@/assets/icons/icon-dashboard-condition.svg'
 import Sparkline from './Sparkline'
 
-const ConditionCard = () => {
-  const scores = [0, 1, 1, 2, 1, 2, 0]
-  const chartData = scores.map((v, i) => ({ x: i, y: v }))
-
+const ConditionCard = ({ moodData }) => {
   return (
     <div className='bg-[#DFF0EF] rounded-[15px] p-[21px] min-w-40'>
       <div className='flex justify-between items-center'>
@@ -16,7 +13,7 @@ const ConditionCard = () => {
       </div>
       <div>
         <p className='font-semibold text-[28px] text-black py-5'>좋음</p>
-        <Sparkline data={chartData} color={'#000'} stroke={1} domain={[0, 2]} />
+        <Sparkline data={moodData} color={'#000'} stroke={1} domain={[0, 2]} />
         <p className='font-normal text-[15px] text-black text-end pt-3.5'>일주일 변화 추이</p>
       </div>
     </div>
