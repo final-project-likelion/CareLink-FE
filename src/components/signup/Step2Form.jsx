@@ -18,7 +18,7 @@ const Step2Form = ({ form, setField }) => {
           <TextField
             label='보호자 휴대폰 번호'
             type='text'
-            placeholder='010-0000-0000'
+            placeholder='01000000000'
             value={form.caregiverPhoneNum}
             onChange={(e) => setField('caregiverPhoneNum', e.target.value)}
           />
