@@ -2,56 +2,19 @@ import React from 'react'
 import SmallArticleCard from './SmallArticleCard'
 import Thumb from '@/assets/images/temp-content-thumb.svg'
 
-// 더미데이터
-const dummyData = [
-  {
-    id: 1,
-    img: Thumb,
-    title: '뉴스 더미 데이터 1',
-    subtitle: '더미데이터입니다.',
-    time: 2,
-  },
-  {
-    id: 2,
-    img: Thumb,
-    title: '뉴스 더미 데이터 2',
-    subtitle: '더미데이터입니다.',
-    time: 2,
-  },
-  {
-    id: 3,
-    img: Thumb,
-    title: '뉴스 더미 데이터 3',
-    subtitle: '더미데이터입니다.',
-    time: 2,
-  },
-  {
-    id: 4,
-    img: Thumb,
-    title: '뉴스 더미 데이터 4',
-    subtitle: '더미데이터입니다.',
-    time: 2,
-  },
-  {
-    id: 5,
-    img: Thumb,
-    title: '예시 기사 더미 데이터 5',
-    subtitle: '더미데이터입니다.',
-    time: 2,
-  },
-]
-
-const SmallArticleSection = () => {
+const SmallArticleSection = ({ items, disabled }) => {
   return (
     <div className='w-full overflow-x-auto'>
       <div className='flex flex-row gap-[35px] flex-nowrap w-max mr-12'>
-        {dummyData.map((d) => (
+        {items.map((item) => (
           <SmallArticleCard
-            key={d.id}
-            img={d.img}
-            title={d.title}
-            subtitle={d.subtitle}
-            time={d.time}
+            key={item.newsId}
+            newsId={item.newsId}
+            img={item.thumbnailUrl}
+            title={item.title}
+            subtitle={item.previewSummary}
+            time={item.estimatedMinutes}
+            disabled={disabled}
           />
         ))}
       </div>

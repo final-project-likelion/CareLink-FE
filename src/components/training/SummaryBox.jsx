@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
+import api from '@/apis/axios'
 import FeedbackBox from './FeedbackBox'
 import IconNumber from '@/assets/icons/icon-number-1.svg'
 import CircleCheck from '@/assets/icons/icon-circle-check.svg'
 import FieldRow from './FieldRow'
 import SubmitButton from './SubmitButton'
 
-const SummaryBox = () => {
+const SummaryBox = ({ newsId }) => {
   const [showFeedback, setShowFeedback] = useState(false)
   const [fieldData, setFieldData] = useState({
     who: '',
-    when: '',
-    where: '',
+    whenAt: '',
+    whereAt: '',
     what: '',
     how: '',
     why: '',
   })
+  const [answers, setAnswers] = useState(null)
 
   // 필드값 변경될 때 호출되는 함수
   const handleInput = (key, value) => {
@@ -23,11 +25,24 @@ const SummaryBox = () => {
 
   // 모든 필드 채워졌는지 확인
   const isAllFilled = Object.values(fieldData).some((val) => val.trim() !== '')
-  const handleSubmit = () => {
-    if (isAllFilled) {
-      setShowFeedback(true)
-    } else {
+  const handleSubmit = async () => {
+    if (!isAllFilled) {
       alert('최소 하나의 답변을 입력해 주세요.')
+      return
+    }
+    try {
+      const res = await api.post(`/api/trainings/news/${newsId}/sixw`, {
+        who: fieldData.who,
+        whenAt: fieldData.whenAt,
+        whereAt: fieldData.whereAt,
+        what: fieldData.what,
+        why: fieldData.why,
+        how: fieldData.how,
+      })
+      setAnswers(res.data.data.correctAnswer)
+      setShowFeedback(true)
+    } catch (err) {
+      console.error(err)
     }
   }
   return (
@@ -48,15 +63,15 @@ const SummaryBox = () => {
         <FieldRow
           label='언제'
           placeholder='언제 일어난 일인가요?'
-          value={fieldData.when}
-          onChange={(val) => handleInput('when', val)}
+          value={fieldData.whenAt}
+          onChange={(val) => handleInput('whenAt', val)}
           disabled={showFeedback}
         />
         <FieldRow
           label='어디서'
           placeholder='어디에서 일어난 일인가요?'
-          value={fieldData.where}
-          onChange={(val) => handleInput('where', val)}
+          value={fieldData.whereAt}
+          onChange={(val) => handleInput('whereAt', val)}
           disabled={showFeedback}
         />
         <FieldRow
@@ -97,6 +112,7 @@ const SummaryBox = () => {
           title='1단계 피드백'
           text='입력한 내용과 모법 답안을 비교해 보세요. 보완할 점도 확인하면 실력 향상에 도움이 될 거예요.'
           boxtitle='모범 답안'
+          answers={answers}
           feedbackType={1}
         />
       )}

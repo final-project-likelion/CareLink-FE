@@ -28,6 +28,11 @@ const router = createBrowserRouter([
     children: [{ index: true, element: <LoginPage /> }], // 메인 페이지 로그인으로 변경!
   },
   {
+    path: '/login',
+    element: <App />,
+    children: [{ index: true, element: <LoginPage /> }], // 메인 페이지 로그인으로 변경!
+  },
+  {
     path: '/chat',
     element: <App />,
     children: [{ index: true, element: <ChatPage /> }],
@@ -38,7 +43,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <TrainingPage /> },
       {
-        path: 'article',
+        path: 'article/:newsId',
         element: <TrainingArticlePage />,
       },
       {

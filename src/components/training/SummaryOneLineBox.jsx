@@ -1,18 +1,28 @@
 import React, { useState } from 'react'
+import api from '@/apis/axios'
 import SubmitButton from './SubmitButton'
 import FeedbackBox from './FeedbackBox'
 import IconNumber from '@/assets/icons/icon-number-2.svg'
 
-const SummaryOneLineBox = () => {
+const SummaryOneLineBox = ({ newsId }) => {
   const [showFeedback, setShowFeedback] = useState(false)
   const [text, setText] = useState('')
+  const [answer, setAnswer] = useState(null)
 
   const isFilled = text.trim().length > 0
-  const handleSubmit = () => {
-    if (isFilled) {
-      setShowFeedback(true)
-    } else {
+  const handleSubmit = async () => {
+    if (!isFilled) {
       alert('한 줄 요약에 대한 답변을 입력해주세요.')
+      return
+    }
+    try {
+      const res = await api.post(`/api/trainings/news/${newsId}/summary`, {
+        summary: text,
+      })
+      setAnswer(res.data.data.correctAnswer)
+      setShowFeedback(true)
+    } catch (err) {
+      console.error(err)
     }
   }
   return (
@@ -39,6 +49,7 @@ const SummaryOneLineBox = () => {
           title='최종 피드백'
           text={`모든 훈련을 완료하셨습니다! 정말 대단해요!\n AI의 자동 요약을 참교해 비교해보세요. 꾸준한 훈련은 인지 능력 향상에 큰 도움이 됩니다.`}
           boxtitle='AI 자동 요약 (참고용)'
+          answer={answer}
           feedbackType={2}
         />
       )}

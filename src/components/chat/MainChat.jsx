@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '@/apis/axios'
 import Chatbot from './Chatbot'
 import ChatInputBar from './ChatInputBar'
 import Loading from '../common/Loading'
@@ -7,33 +7,32 @@ import Loading from '../common/Loading'
 function MainChat() {
   const [isLoading, setIsLoading] = useState(false)
   // 채팅 초기 메세지
-  const [messages, setMessages] = useState([
-    {
-      id: 'default-question',
-      role: 'bot',
-      text: "안녕하세요, 숙멋사님! 오늘 하루를 시작해볼까요?\n상단의 '오늘의 할 일'을 먼저 확인해주세요.",
-    },
-  ])
-
-  // 연동
-  const apiUrl = import.meta.env.VITE_API_BASE_URL
-  const accessToken = localStorage.getItem('accessToken')
+  const [messages, setMessages] = useState([])
 
   // 1. 채팅방 불러오기
   const getChatRoom = async () => {
     try {
       setIsLoading(true)
-      const res = await axios.get(`${apiUrl}/api/chatbot`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
+      const res = await api.get('/api/chatbot')
+      const conversations = res.data.data.conversations ?? []
 
-      const getMessages = res.data.data.conversations.flatMap((c, index) => [
+      const getMessages = conversations.flatMap((c, index) => [
         { id: `${index}-question`, role: 'user', text: c.question },
         { id: `${index}-answer`, role: 'bot', text: c.answer },
       ])
-      setMessages(getMessages)
+
+      if (getMessages.length === 0) {
+        setMessages([
+          {
+            id: 'default-question',
+            role: 'bot',
+            text: "안녕하세요! 오늘 하루를 활기차게 시작해볼까요?\n상단의 '오늘의 할 일'을 먼저 확인해주세요.",
+          },
+          ...getMessages,
+        ])
+      } else {
+        setMessages(getMessages)
+      }
     } catch (err) {
       console.error(err)
     } finally {
@@ -49,9 +48,7 @@ function MainChat() {
       formData.append('file', file)
 
       // Content-type 지정하면 안된다는데 실제 연동에서 확인 필요함
-      const res = await axios.post(`${apiUrl}/api/chatbot/voice`, formData, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+      const res = await api.post('/api/chatbot/voice', formData)
       return res.data.data
     } catch (err) {
       console.error(err)
@@ -64,13 +61,9 @@ function MainChat() {
   const sendChat = async (text) => {
     try {
       setIsLoading(true)
-      await axios.post(
-        `${apiUrl}/api/chatbot/chat`,
-        {
-          question: text,
-        },
-        { headers: { Authorization: `Bearer ${accessToken}` } },
-      )
+      await api.post('/api/chatbot/chat', {
+        question: text,
+      })
       await getChatRoom() // 채팅방 다시 불러오기
     } catch (err) {
       console.error(err)

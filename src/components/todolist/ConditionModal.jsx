@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import api from '@/apis/axios'
 import ModalBase from './ModalBase'
 import ConditionQuestion from './ConditionQuestion'
 import GoodCondition from '@/assets/icons/icon-condition-good.svg'
@@ -40,7 +40,7 @@ const conditionForm = [
   },
 ]
 
-function ConditionModal({ onClose, allChecked }) {
+function ConditionModal({ onClose, onChecked }) {
   // 항목별 점수 저장
   const [answers, setAnswers] = useState({ mood: null, sleep: null, pain: null })
   // 모달 등록 vs 수정 모드 구분
@@ -50,10 +50,6 @@ function ConditionModal({ onClose, allChecked }) {
   const handleSelect = (key, score) => {
     setAnswers((prev) => ({ ...prev, [key]: score }))
   }
-
-  // 모달 확인 버튼 (연동)
-  const apiUrl = import.meta.env.VITE_API_BASE_URL
-  const accessToken = localStorage.getItem('accessToken')
 
   const handleConfirm = async () => {
     const isAllChecked = Object.values(answers).every((v) => v !== null)
@@ -71,16 +67,12 @@ function ConditionModal({ onClose, allChecked }) {
     try {
       // 등록 vs 수정 모드 분기
       if (isEditMode) {
-        await axios.put(`${apiUrl}/api/condition/today`, payload, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
+        await api.put('/api/condition/today', payload)
       } else {
-        await axios.post(`${apiUrl}/api/condition/today`, payload, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
+        await api.post('/api/condition/today', payload)
       }
 
-      allChecked(true)
+      onChecked()
       onClose()
     } catch (err) {
       console.error(err)
@@ -90,9 +82,7 @@ function ConditionModal({ onClose, allChecked }) {
   // 오늘의 컨디션 불러오기 (연동)
   const getTodayCondition = async () => {
     try {
-      const res = await axios.get(`${apiUrl}/api/condition/today`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
+      const res = await api.get('/api/condition/today')
 
       if (res.data.data) {
         const { moodScore, sleepScore, painScore } = res.data.data
@@ -103,7 +93,6 @@ function ConditionModal({ onClose, allChecked }) {
           pain: painScore,
         })
         setIsEditMode(true) // 수정 모드
-        allChecked(true)
       } else {
         setIsEditMode(false)
       }
