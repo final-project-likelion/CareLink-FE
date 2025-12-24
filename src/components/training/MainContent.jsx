@@ -10,6 +10,7 @@ import ResultButton from './ResultButton'
 const MainContent = () => {
   const [bigArticles, setBigArticles] = useState([])
   const [smallArticles, setSmallArticles] = useState([])
+  const [todayDone, setTodayDone] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
@@ -19,8 +20,17 @@ const MainContent = () => {
       const res = await api.get('/api/trainings/news')
 
       if (res.data.success) {
-        setBigArticles(res.data.data.recommended)
-        setSmallArticles(res.data.data.others)
+        const recommended = res.data.data.recommended
+        const others = res.data.data.others
+
+        setBigArticles(recommended)
+        setSmallArticles(others)
+
+        const isCompleted = [...recommended, ...others].some((item) => item.completed === true)
+
+        if (isCompleted) {
+          setTodayDone(true)
+        }
       }
     } catch (err) {
       console.error(err)
@@ -44,8 +54,8 @@ const MainContent = () => {
             <Title text={'오늘의 추천 신문 기사'} />
             <Subtitle text={'AI가 회원님의 관심사와 인지 능력에 맞춰 추천하는 기사입니다.'} />
           </div>
-          <BigArticleSection items={bigArticles} />
-          <SmallArticleSection items={smallArticles} />
+          <BigArticleSection items={bigArticles} disabled={todayDone} />
+          <SmallArticleSection items={smallArticles} disabled={todayDone} />
           <ResultButton onClick={handleClick} />
         </div>
       </div>

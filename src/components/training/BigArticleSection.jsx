@@ -2,7 +2,7 @@ import React from 'react'
 import BigArticleCard from './BigArticleCard'
 import Thumb from '@/assets/images/temp-article-thumb.svg'
 
-const BigArticleSection = ({ items }) => {
+const BigArticleSection = ({ items, disabled }) => {
   return (
     <div className='w-full overflow-x-auto'>
       <div className='flex flex-row gap-[30px] flex-nowrap w-max'>
@@ -13,6 +13,7 @@ const BigArticleSection = ({ items }) => {
             img={item.thumbnailUrl}
             title={item.title}
             time={item.estimatedMinutes}
+            disabled={disabled}
           />
         ))}
       </div>

@@ -1,12 +1,18 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-function BigArticleCard({ newsId, img, title, time }) {
+function BigArticleCard({ newsId, img, title, time, disabled }) {
   const navigate = useNavigate()
 
+  const handleClick = () => {
+    if (disabled) {
+      return
+    }
+    navigate(`/training/article/${newsId}`)
+  }
   return (
     <div
-      onClick={() => navigate(`/training/article/${newsId}`)}
+      onClick={handleClick}
       className='w-80 h-80 flex flex-col gap-2.5 p-5 rounded-[20px] bg-[#E8E8E8] cursor-pointer'
     >
       <img className='w-[280px] h-[170px] rounded-2xl object-cover pb-2.5' src={img} />

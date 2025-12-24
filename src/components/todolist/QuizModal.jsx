@@ -1,47 +1,60 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import api from '@/apis/axios'
 import ModalBase from './ModalBase'
 import QuizButton from './QuizButton'
 
-// 퀴즈 더미데이터
-const quizDummy = {
-  quizId: 1,
-  question: '대한민국의 수도는 어디일까요?',
-  options: [
-    {
-      id: 1,
-      text: '부산',
-    },
-    {
-      id: 2,
-      text: '서울',
-    },
-    {
-      id: 3,
-      text: '인천',
-    },
-    {
-      id: 4,
-      text: '대전',
-    },
-  ],
-  correctOptionId: 2, //정답
-}
-
-function QuizModal({ onClose, allChecked }) {
-  const [selectedId, setSelectedId] = useState(null)
+function QuizModal({ onClose, onChecked }) {
+  const [quiz, setQuiz] = useState(null)
+  const [selectedIndex, setSelectedIndex] = useState(null)
   const [isAnswered, setIsAnswered] = useState(false)
+  const [correctIndex, setCorrectIndex] = useState(null)
+  const [isCorrect, setIsCorrect] = useState(false)
 
+  // 퀴즈 불러오기
+  const getQuiz = async () => {
+    try {
+      const res = await api.get('/api/quiz/')
+      console.log('QUIZ RESPONSE:', res)
+
+      if (res.data.success) {
+        setQuiz(res.data.data)
+      }
+    } catch (err) {
+      console.error('QUIZ ERROR FULL:', err)
+      console.error('STATUS:', err.response?.status)
+      console.error('DATA:', err.response?.data)
+    }
+  }
   // 버튼 선택
-  const handleSelect = (id) => {
+  const handleSelect = (index) => {
     if (isAnswered) return
-    setSelectedId(id)
+    setSelectedIndex(index)
   }
   // 확인 버튼
-  const handleConfirm = () => {
-    if (selectedId == null) return
-    setIsAnswered(true)
-    allChecked(true)
+  const handleConfirm = async () => {
+    if (selectedIndex == null) return
+    try {
+      const res = await api.post(`/api/quiz/${quiz.quizId}/submit`, {
+        selectedOption: selectedIndex + 1,
+      })
+
+      if (res.data.success) {
+        const result = res.data.data
+        setIsAnswered(true)
+        setCorrectIndex(result.correctOption - 1)
+        setIsCorrect(result.correct)
+        onChecked()
+      }
+    } catch (err) {
+      console.error(err)
+    }
   }
+
+  useEffect(() => {
+    getQuiz()
+  }, [])
+
+  if (!quiz) return null
 
   return (
     <>
@@ -51,21 +64,21 @@ function QuizModal({ onClose, allChecked }) {
         onConfirm={handleConfirm}
         containerClassName='w-[871px]'
       >
-        <p className='mt-10 font-semibold text-[36px] text-center'>{quizDummy.question}</p>
+        <p className='mt-10 font-semibold text-[36px] text-center'>{quiz.question}</p>
         <div className='mt-[50px] mb-[85px] grid grid-cols-2 gap-x-20 gap-y-[60px]'>
-          {quizDummy.options.map((q) => {
-            const isSelected = q.id === selectedId // 내가 고른 버튼
-            const isCorrect = q.id === quizDummy.correctOptionId //정답 여부
+          {quiz.options.map((text, index) => {
+            const isSelected = index === selectedIndex // 내가 고른 답
+            const isCorrectOption = index === correctIndex // 정답
 
             return (
               <QuizButton
-                key={q.id}
-                text={q.text}
-                onClick={() => handleSelect(q.id)}
+                key={index}
+                text={text}
+                onClick={() => !isAnswered && setSelectedIndex(index)}
                 disabled={isAnswered}
                 isSelected={!isAnswered && isSelected}
-                isCorrect={isAnswered && isCorrect} // 정답 버튼
-                isWrong={isAnswered && isSelected && !isCorrect} // 오답 버튼
+                isCorrect={isAnswered && isCorrectOption}
+                isWrong={isAnswered && isSelected && !isCorrectOption}
               />
             )
           })}
