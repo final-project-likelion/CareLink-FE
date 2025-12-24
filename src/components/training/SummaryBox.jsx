@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import api from '@/apis/axios'
 import FeedbackBox from './FeedbackBox'
 import IconNumber from '@/assets/icons/icon-number-1.svg'
@@ -6,17 +6,19 @@ import CircleCheck from '@/assets/icons/icon-circle-check.svg'
 import FieldRow from './FieldRow'
 import SubmitButton from './SubmitButton'
 
-const SummaryBox = ({ newsId }) => {
-  const [showFeedback, setShowFeedback] = useState(false)
-  const [fieldData, setFieldData] = useState({
-    who: '',
-    whenAt: '',
-    whereAt: '',
-    what: '',
-    how: '',
-    why: '',
-  })
-  const [answers, setAnswers] = useState(null)
+const SummaryBox = ({ newsId, mode = 'today', defaultFieldData = null, defaultAnswers = null }) => {
+  const [showFeedback, setShowFeedback] = useState(mode === 'history')
+  const [fieldData, setFieldData] = useState(
+    defaultFieldData || {
+      who: '',
+      whenAt: '',
+      whereAt: '',
+      what: '',
+      how: '',
+      why: '',
+    },
+  )
+  const [answers, setAnswers] = useState(defaultAnswers)
 
   // 필드값 변경될 때 호출되는 함수
   const handleInput = (key, value) => {
@@ -26,6 +28,7 @@ const SummaryBox = ({ newsId }) => {
   // 모든 필드 채워졌는지 확인
   const isAllFilled = Object.values(fieldData).some((val) => val.trim() !== '')
   const handleSubmit = async () => {
+    if (mode === 'history') return
     if (!isAllFilled) {
       alert('최소 하나의 답변을 입력해 주세요.')
       return
@@ -45,6 +48,14 @@ const SummaryBox = ({ newsId }) => {
       console.error(err)
     }
   }
+
+  useEffect(() => {
+    if (mode === 'history' && defaultFieldData) {
+      setFieldData(defaultFieldData)
+      setAnswers(defaultAnswers)
+      setShowFeedback(true)
+    }
+  }, [mode, defaultFieldData, defaultAnswers])
   return (
     <div>
       <div className='flex flex-row items-center gap-[13px]'>
@@ -58,21 +69,21 @@ const SummaryBox = ({ newsId }) => {
           placeholder='주체는 누구인가요?'
           value={fieldData.who}
           onChange={(val) => handleInput('who', val)}
-          disabled={showFeedback}
+          disabled={mode === 'history' || showFeedback}
         />
         <FieldRow
           label='언제'
           placeholder='언제 일어난 일인가요?'
           value={fieldData.whenAt}
           onChange={(val) => handleInput('whenAt', val)}
-          disabled={showFeedback}
+          disabled={mode === 'history' || showFeedback}
         />
         <FieldRow
           label='어디서'
           placeholder='어디에서 일어난 일인가요?'
           value={fieldData.whereAt}
           onChange={(val) => handleInput('whereAt', val)}
-          disabled={showFeedback}
+          disabled={mode === 'history' || showFeedback}
         />
         <FieldRow
           label='무엇을'
@@ -81,7 +92,7 @@ const SummaryBox = ({ newsId }) => {
           multiline={true}
           rows={2}
           onChange={(val) => handleInput('what', val)}
-          disabled={showFeedback}
+          disabled={mode === 'history' || showFeedback}
         />
         <FieldRow
           label='어떻게'
@@ -90,7 +101,7 @@ const SummaryBox = ({ newsId }) => {
           multiline={true}
           rows={2}
           onChange={(val) => handleInput('how', val)}
-          disabled={showFeedback}
+          disabled={mode === 'history' || showFeedback}
         />
         <FieldRow
           label='왜'
@@ -99,7 +110,7 @@ const SummaryBox = ({ newsId }) => {
           multiline={true}
           rows={2}
           onChange={(val) => handleInput('why', val)}
-          disabled={showFeedback}
+          disabled={mode === 'history' || showFeedback}
         />
       </div>
       {/* 버튼 */}

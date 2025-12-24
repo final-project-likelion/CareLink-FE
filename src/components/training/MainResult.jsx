@@ -26,9 +26,6 @@ const MainResult = () => {
       }
     } catch (err) {
       console.error(err)
-      console.error('STATUS:', err.response.status)
-      console.error('HEADERS:', err.response.headers)
-      console.error('DATA:', err.response.data)
     }
   }
 
@@ -59,6 +56,7 @@ const MainResult = () => {
           {trainings.map((item) => (
             <DaySummaryCard
               key={item.newsId}
+              newsId={item.newsId}
               date={item.date}
               title={item.title}
               score={item.score}

@@ -41,9 +41,6 @@ function ChatInputBar({ onSendText, onSendVoice }) {
           lastModified: Date.now(),
         })
 
-        // 업로드할 파일 콘솔 찍어보기
-        console.log('업로드할 파일: ', file)
-
         const extractedText = await onSendVoice(file)
         setText(extractedText)
         cleanup()
@@ -87,6 +84,11 @@ function ChatInputBar({ onSendText, onSendVoice }) {
     }
   }
 
+  // 모달에서 x 버튼 클릭시
+  const closeModal = () => {
+    setIsMicModalOpen(false)
+  }
+
   return (
     <div className=' h-[99px] bg-white rounded-b-[20px] shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] flex justify-center items-center'>
       <div className='flex flex-row px-[26px] w-full'>
@@ -116,7 +118,7 @@ function ChatInputBar({ onSendText, onSendVoice }) {
           보내기
         </button>
       </div>
-      {isMicModalOpen && <MicModal onClose={stopRecording} />}
+      {isMicModalOpen && <MicModal onClose={closeModal} onFinish={stopRecording} />}
     </div>
   )
 }

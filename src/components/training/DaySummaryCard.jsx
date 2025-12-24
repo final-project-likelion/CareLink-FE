@@ -1,9 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Score from '@/assets/icons/icon-score.svg'
 
-function DaySummaryCard({ date, title, score }) {
+function DaySummaryCard({ newsId, date, title, score }) {
+  const navigate = useNavigate()
+  const handleClick = () => {
+    navigate(`/training/article/result/${newsId}`)
+  }
   return (
-    <div className='flex flex-col gap-5 py-[25px] px-6 rounded-[15px] bg-white shadow-[0px_1px_1px_0px_rgba(0,0,0,0.25)]'>
+    <div
+      onClick={handleClick}
+      className='flex flex-col gap-5 py-[25px] px-6 rounded-[15px] bg-white shadow-[0px_1px_1px_0px_rgba(0,0,0,0.25)] cursor-pointer'
+    >
       <p className='font-medium text-[20px]'>{date}</p>
       <p className='font-semibold text-[25px] line-clamp-2 break-keep'>{title}</p>
       <div className='flex flex-col gap-2.5'>

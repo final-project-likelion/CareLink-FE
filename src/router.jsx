@@ -6,6 +6,7 @@ import ChatPage from '@/pages/chat/ChatPage'
 import TrainingPage from './pages/training/TrainingPage'
 import TrainingArticlePage from './pages/training/TrainingArticlePage'
 import TrainingResultPage from './pages/training/TrainingResultPage'
+import ArticleResultPage from './pages/training/ArticleResultPage'
 // 환경설정
 import SettingsPage from './pages/settings/SettingsPage'
 import MedicationEditPage from './pages/settings/MedicationEditPage'
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: 'result',
         element: <TrainingResultPage />,
+      },
+      {
+        path: 'article/result/:newsId',
+        element: <ArticleResultPage />,
       },
     ],
   },
