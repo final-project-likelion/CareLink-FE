@@ -1,7 +1,7 @@
 import React from 'react'
 import RecordingIcon from '@/assets/icons/icon-mic-recording.svg'
 
-function MicModal({ onClose }) {
+function MicModal({ onClose, onFinish }) {
   return (
     <div className='fixed inset-0 z-50 flex items-center justify-center w-full h-full '>
       <div className='absolute inset-0 shadow-[0px_1px_5px_3px_rgba(0,0,0,0.25)] backdrop-blur-sm' />
@@ -28,7 +28,7 @@ function MicModal({ onClose }) {
         </div>
         <button
           type='button'
-          onClick={onClose}
+          onClick={onFinish}
           className='mt-5 px-[141px] py-[10.5px] font-semibold text-[23px] bg-primary text-white rounded-[10px] cursor-pointer'
         >
           완료
