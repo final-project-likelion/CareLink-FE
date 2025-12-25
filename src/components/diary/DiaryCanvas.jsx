@@ -70,7 +70,13 @@ const DiaryCanvas = forwardRef(function DiaryCanvas({ tool, color }, ref) {
     ctx.putImageData(prev, 0, 0)
   }
 
-  useImperativeHandle(ref, () => ({ undo }))
+  const exportBlob = async () => {
+    const canvas = canvasRef.current
+    if (!canvas) return null
+    return await new Promise((resolve) => canvas.toBlob(resolve, 'image/png', 1.0))
+  }
+
+  useImperativeHandle(ref, () => ({ undo, exportBlob }))
 
   const onDown = (e) => {
     e.preventDefault()
