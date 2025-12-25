@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import calender from '@/assets/icons/icon-calender.svg'
 import DiaryTitleInput from './DiaryTitleInput'
 import DiaryTool from './DiaryTool'
 import DiaryBtn from './DiaryBtn'
 import diaryRecord from '@/assets/icons/icon-diary-record.svg'
+import DiaryCanvas from './DiaryCanvas'
 
 const DiaryWriteContent = () => {
   const navigate = useNavigate()
   const today = new Date()
   const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`
+
+  const canvasRef = useRef(null)
+  const [tool, setTool] = useState('pen')
+  const [color, setColor] = useState('#000000')
 
   return (
     <div className='flex-1 bg-background px-[50px] py-[30px] overflow-y-auto flex flex-col gap-5'>
@@ -21,9 +26,15 @@ const DiaryWriteContent = () => {
         </div>
       </div>
       <DiaryTitleInput />
-      <DiaryTool />
-      <div className='border-[1.5px] border-[#B3B3B3] rounded-[10px] min-h-[800px]'>
-        {/* 일기 캔버스 */}
+      <DiaryTool
+        tool={tool}
+        setTool={setTool}
+        color={color}
+        setColor={setColor}
+        onUndo={() => canvasRef.current?.undo()}
+      />
+      <div className='border-[1.5px] border-[#B3B3B3] rounded-[10px] min-h-[800px] overflow-hidden'>
+        <DiaryCanvas ref={canvasRef} tool={tool} color={color} />
       </div>
       <div>
         <div className='flex justify-between'>
