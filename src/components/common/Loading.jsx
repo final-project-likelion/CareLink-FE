@@ -1,5 +1,5 @@
 import React from 'react'
-import ImgLoading from '@/assets/images/loading.svg'
+import ImgLoading from '@/assets/images/Spinner.svg'
 
 const Loading = () => {
   return (
