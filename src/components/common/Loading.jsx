@@ -1,5 +1,5 @@
 import React from 'react'
-import Spinner from '@/assets/images/Spinner.svg'
+import Spinner from '@/assets/images/spinner.svg'
 
 const Loading = () => {
   return (
