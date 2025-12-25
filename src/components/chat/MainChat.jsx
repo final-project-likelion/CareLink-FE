@@ -21,18 +21,14 @@ function MainChat() {
         { id: `${index}-answer`, role: 'bot', text: c.answer },
       ])
 
-      if (getMessages.length === 0) {
-        setMessages([
-          {
-            id: 'default-question',
-            role: 'bot',
-            text: "안녕하세요! 오늘 하루를 활기차게 시작해볼까요?\n상단의 '오늘의 할 일'을 먼저 확인해주세요.",
-          },
-          ...getMessages,
-        ])
-      } else {
-        setMessages(getMessages)
-      }
+      setMessages([
+        {
+          id: 'default-question',
+          role: 'bot',
+          text: "안녕하세요! 오늘 하루를 활기차게 시작해볼까요?\n상단의 '오늘의 할 일'을 먼저 확인해주세요.",
+        },
+        ...getMessages,
+      ])
     } catch (err) {
       console.error(err)
     } finally {
@@ -47,7 +43,6 @@ function MainChat() {
       const formData = new FormData()
       formData.append('file', file)
 
-      // Content-type 지정하면 안된다는데 실제 연동에서 확인 필요함
       const res = await api.post('/api/chatbot/voice', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
