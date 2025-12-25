@@ -26,9 +26,11 @@ const MainContent = () => {
         setBigArticles(recommended)
         setSmallArticles(others)
 
-        const isCompleted = [...recommended, ...others].some((item) => item.completed === true)
+        const isTodayDone = [...recommended, ...others].some(
+          (item) => item.canEnterTraining === false,
+        )
 
-        if (isCompleted) {
+        if (isTodayDone) {
           setTodayDone(true)
         }
       }
@@ -47,7 +49,7 @@ const MainContent = () => {
     getTodayArticle()
   }, [])
   return (
-    <div className='flex-1 bg-background py-[30px] pl-[50px] overflow-x-hidden'>
+    <div className='flex-1 bg-background py-[30px] pl-[50px] pr-[24px] overflow-x-hidden'>
       <div className='flex flex-col gap-2.5'>
         <div className='flex flex-col gap-10'>
           <div className='flex flex-col gap-2.5'>
